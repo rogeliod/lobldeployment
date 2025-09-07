@@ -1,17 +1,25 @@
 import { ReactFlowProvider } from "@xyflow/react";
 
-import ReactFlowCanvas from "@/components/layout/ReactFlowCanvas";
-import { DnDProvider } from "./context/DragAndDropContext";
+import ReactFlowCanvas from "@/components/global/ReactFlowCanvas";
+import AppSidebar from "@/components/layout/AppSidebar";
+
+import { SidebarProvider } from "@/components/ui/sidebar";
+
+import { DnDProvider } from "@/context/DragAndDropContext";
 
 function App() {
   return (
     <main>
       <ReactFlowProvider>
         <DnDProvider>
-          <aside>Sidebar here</aside>
-          <section className="w-full">
-            <ReactFlowCanvas />
-          </section>
+          <SidebarProvider>
+            <aside>
+              <AppSidebar />
+            </aside>
+            <section className="w-full">
+              <ReactFlowCanvas />
+            </section>
+          </SidebarProvider>
         </DnDProvider>
       </ReactFlowProvider>
     </main>
