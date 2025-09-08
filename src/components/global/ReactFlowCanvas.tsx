@@ -10,12 +10,11 @@ import {
 
 import type { OnConnect, Node, OnSelectionChangeParams } from "@xyflow/react";
 
-import "@xyflow/react/dist/style.css";
+import { nodeTypes } from "@/types/node.types";
 
 import { useDnd } from "@/context/DragAndDropContext";
 
-let id = 0;
-const getId = () => `dndnode_${id++}`;
+import "@xyflow/react/dist/style.css";
 
 export default function ReactFlowCanvas() {
   const reactFlowWrapperRef = useRef<HTMLDivElement | null>(null);
@@ -29,7 +28,7 @@ export default function ReactFlowCanvas() {
 
   const onConnect: OnConnect = useCallback(
     (params) => setEdges((eds) => addEdge(params, eds)),
-    []
+    [setEdges]
   );
 
   const onDragOver = useCallback((event: React.DragEvent<HTMLDivElement>) => {
@@ -51,14 +50,14 @@ export default function ReactFlowCanvas() {
       });
 
       const newNode = {
-        id: getId(),
+        id: String(Math.random()),
         type,
         position,
         style: { color: "black" },
         data: { label: type },
       };
 
-      setNodes((nds) => nds.concat(newNode));
+      setNodes((prevNodes) => prevNodes.concat(newNode));
     },
     [screenToFlowPosition, type, setNodes]
   );
@@ -68,8 +67,8 @@ export default function ReactFlowCanvas() {
     event.dataTransfer.effectAllowed = "move";
   };
 
-  const onHandleChange = (e: OnSelectionChangeParams<Node, never>) => {
-    const nodes = e.nodes;
+  const onHandleChange = (event: OnSelectionChangeParams<Node, never>) => {
+    const nodes = event.nodes;
     const selected = nodes.filter((each) => each.selected);
     setSelectedNodeId(selected[0]?.id);
   };
@@ -86,6 +85,7 @@ export default function ReactFlowCanvas() {
         onDragOver={onDragOver}
         onDragStart={onDragStart}
         onSelectionChange={onHandleChange}
+        nodeTypes={nodeTypes}
       >
         <Background />
       </ReactFlow>

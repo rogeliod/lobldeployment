@@ -10,7 +10,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #2d3436;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -139,7 +139,7 @@ button:focus-visible {
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
+  --background: #15171c;
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
@@ -178,5 +178,22 @@ button:focus-visible {
   }
   body {
     @apply bg-background text-foreground;
+  }
+
+  .node-wrapper {
+    background-color: #21252e;
+    @apply shadow-xs shadow-gray-800 border-2 text-gray-300 w-64;
+  }
+
+  .node-wrapper__head{
+    @apply flex justify-between px-3 py-2 border-b;
+  }
+
+  .node-wrapper__body{
+    @apply p-3 pb-5;
+  }
+
+  .node-wrapper__label{
+    @apply border px-2 py-1 uppercase;
   }
 }
