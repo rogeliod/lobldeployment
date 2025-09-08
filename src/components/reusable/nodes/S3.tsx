@@ -10,7 +10,16 @@ export default function S3Node() {
       <div className="node-wrapper__body">
         <p>Description of S3</p>
       </div>
-      <Handle type="source" position={Position.Left} />
+      <Handle
+        type="source"
+        position={Position.Left}
+        id="s3-source"
+        isValidConnection={(connection) => {
+          if (connection.targetHandle === "database-target") {
+            return true;
+          } else return false;
+        }}
+      />
     </div>
   );
 }

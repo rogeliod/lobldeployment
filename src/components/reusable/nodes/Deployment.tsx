@@ -10,7 +10,26 @@ export default function DeploymentNode() {
       <div className="node-wrapper__body">
         <p>Description of Deployment</p>
       </div>
-      <Handle type="source" position={Position.Left} />
+      <Handle
+        type="source"
+        position={Position.Left}
+        id="deployment-source"
+        isValidConnection={(connection) => {
+          if (connection.targetHandle === "pool-source") {
+            return true;
+          } else return false;
+        }}
+      />
+      <Handle
+        type="target"
+        position={Position.Right}
+        id="deployment-target"
+        isValidConnection={(connection) => {
+          if (connection.sourceHandle === "production-target") {
+            return true;
+          } else return false;
+        }}
+      />
     </div>
   );
 }

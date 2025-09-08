@@ -10,8 +10,26 @@ export default function DatabaseNode() {
       <div className="node-wrapper__body">
         <p>Description of database</p>
       </div>
-      <Handle type="target" position={Position.Top} />
-      <Handle type="source" position={Position.Bottom} />
+      <Handle
+        type="target"
+        position={Position.Top}
+        id="database-target"
+        isValidConnection={(connection) => {
+          if (connection.sourceHandle === "s3-source") {
+            return true;
+          } else return false;
+        }}
+      />
+      <Handle
+        type="source"
+        position={Position.Bottom}
+        id="database-source"
+        isValidConnection={(connection) => {
+          if (connection.targetHandle === "pool-target") {
+            return true;
+          } else return false;
+        }}
+      />
     </div>
   );
 }

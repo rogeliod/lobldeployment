@@ -49,15 +49,41 @@ export default function ReactFlowCanvas() {
         y: event.clientY,
       });
 
-      const newNode = {
-        id: String(Math.random()),
-        type,
-        position,
-        style: { color: "black" },
-        data: { label: type },
-      };
+      if (type === "cluster") {
+        const parentId = String(Math.random());
+        const childId = String(Math.random());
 
-      setNodes((prevNodes) => prevNodes.concat(newNode));
+        const newNode = [
+          {
+            id: parentId,
+            type: "group",
+            position,
+            style: {
+              width: 500,
+              height: 500,
+            },
+            data: { label: type },
+          },
+          {
+            id: childId,
+            type: "pool",
+            position: { x: 10, y: 10 },
+            data: { label: type },
+            parentId,
+            draggable: false,
+          },
+        ];
+        setNodes((prevNode) => [...prevNode, ...newNode]);
+      } else {
+        const newNode = {
+          id: String(Math.random()),
+          type,
+          position,
+          style: { color: "black" },
+          data: { label: type },
+        };
+        setNodes((prevNodes) => prevNodes.concat(newNode));
+      }
     },
     [screenToFlowPosition, type, setNodes]
   );

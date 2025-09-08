@@ -10,8 +10,8 @@ export default function ClusterNode() {
       <div className="node-wrapper__body">
         <p>Description of Cluster</p>
       </div>
-      <Handle type="target" position={Position.Top} />
-      <Handle type="source" position={Position.Bottom} />
+      <Handle type="target" position={Position.Top} id="cluster-target" />
+      <Handle type="source" position={Position.Bottom} id="cluster-source" />
     </div>
   );
 }
