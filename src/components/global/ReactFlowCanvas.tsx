@@ -8,7 +8,12 @@ import {
   Background,
 } from "@xyflow/react";
 
-import type { OnConnect, Node, OnSelectionChangeParams } from "@xyflow/react";
+import type {
+  OnConnect,
+  Node,
+  OnSelectionChangeParams,
+  Edge,
+} from "@xyflow/react";
 
 import { nodeTypes } from "@/types/node.types";
 
@@ -20,14 +25,14 @@ export default function ReactFlowCanvas() {
   const reactFlowWrapperRef = useRef<HTMLDivElement | null>(null);
 
   const [nodes, setNodes, onNodesChange] = useNodesState<Node>([]);
-  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
+  const [edges, setEdges, onEdgesChange] = useEdgesState<Edge>([]);
 
   const { screenToFlowPosition } = useReactFlow();
 
   const { type, setSelectedNodeId } = useDnd();
 
   const onConnect: OnConnect = useCallback(
-    (params) => setEdges((eds) => addEdge(params, eds)),
+    (params) => setEdges((eds) => addEdge({ ...params, type: "step" }, eds)),
     [setEdges]
   );
 
@@ -50,12 +55,13 @@ export default function ReactFlowCanvas() {
       });
 
       if (type === "cluster") {
-        const parentId = String(Math.random());
-        const childId = String(Math.random());
+        const clusterId = String(Math.random());
+        const poolId = String(Math.random());
+        const nodeId = String(Math.random());
 
-        const newNode = [
+        const newNode: Node[] = [
           {
-            id: parentId,
+            id: clusterId,
             type: "group",
             position,
             style: {
@@ -65,18 +71,27 @@ export default function ReactFlowCanvas() {
             data: { label: type },
           },
           {
-            id: childId,
+            id: poolId,
             type: "pool",
             position: { x: 10, y: 10 },
             data: { label: type },
-            parentId,
-            draggable: false,
+            parentId: clusterId,
+            extent: "parent",
+          },
+          {
+            id: nodeId,
+            type: "basicNode",
+            position: { x: 8, y: 60 },
+            data: { label: type },
+            parentId: poolId,
+            extent: "parent",
           },
         ];
         setNodes((prevNode) => [...prevNode, ...newNode]);
       } else {
+        const id = String(Math.random());
         const newNode = {
-          id: String(Math.random()),
+          id,
           type,
           position,
           style: { color: "black" },
@@ -93,7 +108,7 @@ export default function ReactFlowCanvas() {
     event.dataTransfer.effectAllowed = "move";
   };
 
-  const onHandleChange = (event: OnSelectionChangeParams<Node, never>) => {
+  const onHandleChange = (event: OnSelectionChangeParams<Node, Edge>) => {
     const nodes = event.nodes;
     const selected = nodes.filter((each) => each.selected);
     setSelectedNodeId(selected[0]?.id);
