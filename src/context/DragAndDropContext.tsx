@@ -6,6 +6,8 @@ type DndContextType = {
   setType: React.Dispatch<React.SetStateAction<string | null>>;
   selectedNodeId: string | null;
   setSelectedNodeId: React.Dispatch<React.SetStateAction<string | null>>;
+  clickedNode: string | null;
+  setClickedNode: React.Dispatch<React.SetStateAction<string | null>>;
 };
 
 const DndContext = createContext<DndContextType>({
@@ -13,15 +15,25 @@ const DndContext = createContext<DndContextType>({
   setType: () => {},
   selectedNodeId: null,
   setSelectedNodeId: () => {},
+  clickedNode: null,
+  setClickedNode: () => {},
 });
 
 export const DnDProvider = ({ children }: { children: ReactNode }) => {
   const [type, setType] = useState<string | null>(null);
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
+  const [clickedNode, setClickedNode] = useState<string | null>(null);
 
   return (
     <DndContext.Provider
-      value={{ type, setType, selectedNodeId, setSelectedNodeId }}
+      value={{
+        type,
+        setType,
+        selectedNodeId,
+        setSelectedNodeId,
+        clickedNode,
+        setClickedNode,
+      }}
     >
       {children}
     </DndContext.Provider>

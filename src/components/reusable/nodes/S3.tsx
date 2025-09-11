@@ -12,7 +12,10 @@ export default function S3Node({ id }: { id: string }) {
         <div className="flex gap-2">
           <p className="node-wrapper__label">S3</p>
           <Trash2
-            onClick={() => handleDeleteNode(id)}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDeleteNode(id);
+            }}
             className="self-center cursor-pointer"
           />
         </div>

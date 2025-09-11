@@ -6,7 +6,8 @@ import { Trash2 } from "lucide-react";
 export default function PoolNode({ id }: { id: string }) {
   const { handleDeleteNodeWithChildren, handleAddNode } = useCRUDNode();
 
-  const handleAdd = () => {
+  const handleAdd = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.stopPropagation();
     handleAddNode({
       id: String(Math.random()),
       parentId: id,
@@ -25,7 +26,10 @@ export default function PoolNode({ id }: { id: string }) {
         <div className="flex gap-2">
           <p className="node-wrapper__label">pool</p>
           <Trash2
-            onClick={() => handleDeleteNodeWithChildren(id)}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDeleteNodeWithChildren(id);
+            }}
             className="self-center"
           />
         </div>

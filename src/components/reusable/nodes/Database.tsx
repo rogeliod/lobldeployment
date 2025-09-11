@@ -14,7 +14,10 @@ export default function DatabaseNode({ id }: { id: string }) {
           <p className="node-wrapper__label">database</p>
           <Trash2
             className="self-center"
-            onClick={() => handleDeleteNode(id)}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDeleteNode(id);
+            }}
           />
         </div>
       </div>

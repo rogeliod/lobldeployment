@@ -29,7 +29,7 @@ export default function ReactFlowCanvas() {
 
   const { screenToFlowPosition } = useReactFlow();
 
-  const { type, setSelectedNodeId } = useDnd();
+  const { type, setSelectedNodeId, setClickedNode } = useDnd();
 
   const onConnect: OnConnect = useCallback(
     (params) => setEdges((eds) => addEdge({ ...params, type: "step" }, eds)),
@@ -131,7 +131,16 @@ export default function ReactFlowCanvas() {
   const onHandleChange = (event: OnSelectionChangeParams<Node, Edge>) => {
     const nodes = event.nodes;
     const selected = nodes.filter((each) => each.selected);
-    setSelectedNodeId(selected[0]?.id);
+    if (selected.length) {
+      setSelectedNodeId(selected[0]?.id);
+    }
+  };
+
+  const handleNodeClick = (
+    _: React.MouseEvent<Element, MouseEvent>,
+    node: Node
+  ) => {
+    setClickedNode(node.id);
   };
 
   return (
@@ -147,6 +156,7 @@ export default function ReactFlowCanvas() {
         onDragStart={onDragStart}
         onSelectionChange={onHandleChange}
         nodeTypes={nodeTypes}
+        onNodeClick={handleNodeClick}
       >
         <Background />
       </ReactFlow>

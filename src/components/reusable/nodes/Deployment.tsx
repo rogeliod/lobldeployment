@@ -13,7 +13,10 @@ export default function DeploymentNode({ id }: { id: string }) {
         <div className="flex gap-2">
           <p className="node-wrapper__label">Deployment</p>
           <Trash2
-            onClick={() => handleDeleteNode(id)}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDeleteNode(id);
+            }}
             className="self-center"
           />
         </div>

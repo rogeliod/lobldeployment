@@ -6,7 +6,8 @@ import { Plus, Trash2 } from "lucide-react";
 export default function ClusterNode({ id }: { id: string }) {
   const { handleAddNode, handleRecursiveDeleteNode } = useCRUDNode();
 
-  const handleAddPool = () => {
+  const handleAddPool = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+    e.stopPropagation();
     const poolId = String(Math.random());
 
     const pool: Node = {
@@ -32,7 +33,10 @@ export default function ClusterNode({ id }: { id: string }) {
     handleAddNode([pool, basicNode]);
   };
 
-  const handleDeleteCluster = () => {
+  const handleDeleteCluster = (
+    e: React.MouseEvent<SVGSVGElement, MouseEvent>
+  ) => {
+    e.stopPropagation();
     handleRecursiveDeleteNode(id);
   };
 

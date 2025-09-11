@@ -6,6 +6,7 @@ import AppSidebar from "@/components/layout/AppSidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 
 import { DnDProvider } from "@/context/DragAndDropContext";
+import AppSheet from "./components/layout/AppSheet";
 
 function App() {
   return (
@@ -19,6 +20,9 @@ function App() {
             <section className="w-full">
               <ReactFlowCanvas />
             </section>
+            <aside>
+              <AppSheet />
+            </aside>
           </SidebarProvider>
         </DnDProvider>
       </ReactFlowProvider>
