@@ -55,20 +55,36 @@ export default function ReactFlowCanvas() {
       });
 
       if (type === "cluster") {
+        // const groupId = String(Math.random());
         const clusterId = String(Math.random());
         const poolId = String(Math.random());
         const nodeId = String(Math.random());
 
         const newNode: Node[] = [
+          // {
+          //   id: groupId,
+          //   type: "group",
+          //   position,
+          //   style: {
+          //     width: 576,
+          //     height: 500,
+          //     zIndex: -1,
+          //   },
+          //   data: { label: type },
+          //   resizing: true,
+          // },
           {
             id: clusterId,
-            type: "group",
-            position,
+            type: "cluster",
+            position: { x: 0, y: 0 },
+            // extent: "parent",
+            // draggable: false,
+            data: { label: "cluster" },
+            // parentId: groupId,
+            // resizing: true,
             style: {
-              width: 500,
-              height: 500,
+              zIndex: 10,
             },
-            data: { label: type },
           },
           {
             id: poolId,
@@ -77,6 +93,9 @@ export default function ReactFlowCanvas() {
             data: { label: type },
             parentId: clusterId,
             extent: "parent",
+            style: {
+              zIndex: 50,
+            },
           },
           {
             id: nodeId,
@@ -85,6 +104,7 @@ export default function ReactFlowCanvas() {
             data: { label: type },
             parentId: poolId,
             extent: "parent",
+            style: { zIndex: 100 },
           },
         ];
         setNodes((prevNode) => [...prevNode, ...newNode]);

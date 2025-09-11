@@ -1,11 +1,22 @@
 import { Handle, Position } from "@xyflow/react";
+import { Trash2 } from "lucide-react";
 
-export default function DatabaseNode() {
+import useCRUDNode from "@/hooks/useCRUD";
+
+export default function DatabaseNode({ id }: { id: string }) {
+  const { handleDeleteNode } = useCRUDNode();
+
   return (
     <div className="node-wrapper w-80 shadow-lg">
       <div className="node-wrapper__head">
         <p className="font-semibold self-center">Name</p>
-        <p className="node-wrapper__label">database</p>
+        <div className="flex gap-2">
+          <p className="node-wrapper__label">database</p>
+          <Trash2
+            className="self-center"
+            onClick={() => handleDeleteNode(id)}
+          />
+        </div>
       </div>
       <div className="node-wrapper__body">
         <p>Description of database</p>
