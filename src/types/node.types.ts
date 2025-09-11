@@ -1,4 +1,4 @@
-import BasicNode from "@/components/reusable/nodes/Basic";
+import ResourceNode from "@/components/reusable/nodes/Resource";
 import ClusterNode from "@/components/reusable/nodes/Cluster";
 import DatabaseNode from "@/components/reusable/nodes/Database";
 import DeploymentNode from "@/components/reusable/nodes/Deployment";
@@ -11,5 +11,5 @@ export const nodeTypes = {
   cluster: ClusterNode,
   pool: PoolNode,
   deployment: DeploymentNode,
-  basicNode: BasicNode,
+  resource: ResourceNode,
 };

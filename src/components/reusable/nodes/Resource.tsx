@@ -2,7 +2,7 @@ import { Trash2Icon } from "lucide-react";
 
 import useCRUDNode from "@/hooks/useCRUD";
 
-export default function BasicNode({ id }: { id: string }) {
+export default function ResourceNode({ id }: { id: string }) {
   const { handleDeleteNode } = useCRUDNode();
 
   return (

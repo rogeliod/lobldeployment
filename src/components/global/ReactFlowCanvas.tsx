@@ -76,7 +76,7 @@ export default function ReactFlowCanvas() {
           {
             id: clusterId,
             type: "cluster",
-            position: { x: 0, y: 0 },
+            position,
             // extent: "parent",
             // draggable: false,
             data: { label: "cluster" },
@@ -89,7 +89,7 @@ export default function ReactFlowCanvas() {
           {
             id: poolId,
             type: "pool",
-            position: { x: 10, y: 10 },
+            position: { x: 10, y: 50 },
             data: { label: type },
             parentId: clusterId,
             extent: "parent",
@@ -99,8 +99,8 @@ export default function ReactFlowCanvas() {
           },
           {
             id: nodeId,
-            type: "basicNode",
-            position: { x: 8, y: 60 },
+            type: "resource",
+            position: { x: 8, y: 120 },
             data: { label: type },
             parentId: poolId,
             extent: "parent",
