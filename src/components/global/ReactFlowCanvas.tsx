@@ -19,6 +19,16 @@ import { nodeTypes } from "@/types/node.types";
 
 import { useDnd } from "@/context/DragAndDropContext";
 
+import {
+  clusterNodeXaxis,
+  poolNodeXaxis,
+  poolNodeYaxis,
+  poolNodeZIndex,
+  resourceNodeXaxis,
+  resourceNodeYaxis,
+  resourceNodeZIndex,
+} from "@/constants";
+
 import "@xyflow/react/dist/style.css";
 
 export default function ReactFlowCanvas() {
@@ -55,56 +65,39 @@ export default function ReactFlowCanvas() {
       });
 
       if (type === "cluster") {
-        // const groupId = String(Math.random());
         const clusterId = String(Math.random());
         const poolId = String(Math.random());
         const nodeId = String(Math.random());
 
         const newNode: Node[] = [
-          // {
-          //   id: groupId,
-          //   type: "group",
-          //   position,
-          //   style: {
-          //     width: 576,
-          //     height: 500,
-          //     zIndex: -1,
-          //   },
-          //   data: { label: type },
-          //   resizing: true,
-          // },
           {
             id: clusterId,
             type: "cluster",
             position,
-            // extent: "parent",
-            // draggable: false,
             data: { label: "cluster" },
-            // parentId: groupId,
-            // resizing: true,
             style: {
-              zIndex: 10,
+              zIndex: clusterNodeXaxis,
             },
           },
           {
             id: poolId,
             type: "pool",
-            position: { x: 10, y: 50 },
+            position: { x: poolNodeXaxis, y: poolNodeYaxis },
             data: { label: type },
             parentId: clusterId,
             extent: "parent",
             style: {
-              zIndex: 50,
+              zIndex: poolNodeZIndex,
             },
           },
           {
             id: nodeId,
             type: "resource",
-            position: { x: 8, y: 120 },
+            position: { x: resourceNodeXaxis, y: resourceNodeYaxis },
             data: { label: type },
             parentId: poolId,
             extent: "parent",
-            style: { zIndex: 100 },
+            style: { zIndex: resourceNodeZIndex },
           },
         ];
         setNodes((prevNode) => [...prevNode, ...newNode]);

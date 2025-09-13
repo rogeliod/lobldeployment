@@ -1,4 +1,4 @@
-export const typeOfNodes = [
+export const typeOfDraggableNodes = [
   {
     type: "s3",
     label: "S3",

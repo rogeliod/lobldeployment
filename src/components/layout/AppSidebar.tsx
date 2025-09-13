@@ -11,7 +11,7 @@ import {
 
 import { useDnd } from "@/context/DragAndDropContext";
 
-import { typeOfNodes } from "@/data/nodes";
+import { typeOfDraggableNodes } from "@/data/nodes";
 
 function AppSidebar() {
   const { setType } = useDnd();
@@ -28,7 +28,7 @@ function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              {typeOfNodes.map((nodes) => (
+              {typeOfDraggableNodes.map((nodes) => (
                 <SidebarMenuItem key={nodes.label}>
                   <SidebarMenuButton asChild>
                     <div

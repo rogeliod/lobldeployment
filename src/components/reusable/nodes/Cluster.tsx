@@ -1,3 +1,4 @@
+import { poolNodeXaxis, poolNodeYaxis, poolNodeZIndex } from "@/constants";
 import useCRUDNode from "@/hooks/useCRUD";
 import useNode from "@/hooks/useNode";
 import { Handle, Position } from "@xyflow/react";
@@ -15,10 +16,13 @@ export default function ClusterNode({ id }: { id: string }) {
     const pool: Node = {
       id: poolId,
       parentId: id,
-      style: { zIndex: 50 },
+      style: { zIndex: poolNodeZIndex },
       extent: "parent",
       data: { label: "pool" },
-      position: { x: 0, y: 50 },
+      position: {
+        x: poolNodeXaxis * Math.random(),
+        y: poolNodeYaxis * Math.random(),
+      },
       type: "pool",
     };
 
@@ -44,9 +48,6 @@ export default function ClusterNode({ id }: { id: string }) {
           <Plus className="self-center" onClick={handleAddPool} />
         </div>
       </div>
-      {/* <div className="node-wrapper__body">
-        <p>Description of Cluster</p>
-      </div> */}
       <Handle type="target" position={Position.Top} id="cluster-target" />
       <Handle type="source" position={Position.Bottom} id="cluster-source" />
     </div>
